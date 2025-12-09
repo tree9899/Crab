@@ -1,0 +1,15 @@
+# ============================
+# 🔤 인코딩 및 줄바꿈 통일 설정
+# ============================
+
+# Windows 환경에서는 CRLF 줄바꿈을 사용
+# UTF-8 인코딩(BOM 없음)으로 체크아웃
+# .bat, .cmd, .ps1 등 스크립트 파일 인코딩 고정
+
+*.bat text eol=crlf working-tree-encoding=UTF-8
+*.cmd text eol=crlf working-tree-encoding=UTF-8
+*.ps1 text eol=crlf working-tree-encoding=UTF-8
+*.cpp text working-tree-encoding=UTF-8
+*.h   text working-tree-encoding=UTF-8
+# .gitkeep는 빈 폴더 추적용이며 항상 텍스트 파일로 처리
+*.gitkeep text

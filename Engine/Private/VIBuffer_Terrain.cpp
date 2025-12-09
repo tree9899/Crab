@@ -1,0 +1,223 @@
+#include "VIBuffer_Terrain.h"
+
+VIBuffer_Terrain::VIBuffer_Terrain(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
+	: VIBuffer { pDevice, pContext }
+{
+}
+
+VIBuffer_Terrain::VIBuffer_Terrain(const VIBuffer_Terrain& Prototype)
+	: VIBuffer{ Prototype }
+    , m_iNumVerticesX { Prototype.m_iNumVerticesX }
+    , m_iNumVerticesZ { Prototype.m_iNumVerticesZ }
+{
+}
+
+HRESULT VIBuffer_Terrain::Initialize_Prototype(const _tchar* pHeightFileMapPath)
+{
+    _ulong          dwByte = { };
+    HANDLE          hFile = CreateFile(pHeightFileMapPath, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+    if (0 == hFile)
+        return E_FAIL;
+
+    BITMAPFILEHEADER        fh{};
+    BITMAPINFOHEADER        ih{};
+    _uint*                  pPixels = { nullptr };
+
+    ReadFile(hFile, &fh, sizeof(fh), &dwByte, nullptr);
+    ReadFile(hFile, &ih, sizeof(ih), &dwByte, nullptr);
+
+    pPixels = new _uint[ih.biWidth * ih.biHeight];
+    ReadFile(hFile, pPixels, sizeof(_uint) * ih.biWidth * ih.biHeight, &dwByte, nullptr);
+
+    CloseHandle(hFile);
+
+    m_iNumVerticesX = ih.biWidth;
+    m_iNumVerticesZ = ih.biHeight;
+
+    m_iVertexStride = sizeof(VTXNORTEX);
+    m_iNumVertices = m_iNumVerticesX * m_iNumVerticesZ;
+    m_iIndexStride = 4;
+
+    m_iNumIndices = (m_iNumVerticesX - 1) * (m_iNumVerticesZ - 1) * 2 * 3;
+    m_iNumVertexBuffers = 1;
+    m_ePrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+
+#pragma region VERTEX_BUFFER
+    D3D11_BUFFER_DESC           VertexBufferDesc{};
+    VertexBufferDesc.ByteWidth = m_iVertexStride * m_iNumVertices;
+    VertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+    VertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+    VertexBufferDesc.CPUAccessFlags = 0;
+    VertexBufferDesc.MiscFlags = 0;
+    VertexBufferDesc.StructureByteStride = m_iVertexStride;
+
+    VTXNORTEX* pVertices = new VTXNORTEX[m_iNumVertices];
+    ZeroMemory(pVertices, sizeof(VTXNORTEX) * m_iNumVertices);
+
+    m_pVertexPositions = new _float3[m_iNumVertices];
+    ZeroMemory(m_pVertexPositions, sizeof(_float3) * m_iNumVertices);
+
+    
+
+    for (size_t i = 0; i < m_iNumVerticesZ; i++)
+    {
+        for (size_t j = 0; j < m_iNumVerticesX; j++)
+        {
+            _uint       iIndex = (_uint)i * m_iNumVerticesX + (_uint)j;
+
+            m_pVertexPositions[iIndex] = pVertices[iIndex].vPosition = _float3((float)j, (pPixels[iIndex] & 0x000000ff) / 10.0f, (float)i);
+            pVertices[iIndex].vNormal = _float3(0.f, 0.f, 0.f);
+            pVertices[iIndex].vTexcoord = _float2(j / (m_iNumVerticesX - 1.f), (float)i / (m_iNumVerticesZ - 1.f));
+
+            
+        }
+    }
+
+
+  
+    
+
+
+#pragma endregion
+
+#pragma region INDEX_BUFFER
+    D3D11_BUFFER_DESC           IndexBufferDesc{};
+    IndexBufferDesc.ByteWidth = m_iIndexStride * m_iNumIndices;
+    IndexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+    IndexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+    IndexBufferDesc.CPUAccessFlags = 0;
+    IndexBufferDesc.MiscFlags = 0;
+    IndexBufferDesc.StructureByteStride = m_iIndexStride;
+
+    _uint* pIndices = new _uint[m_iNumIndices];
+
+    _uint       iNumIndices = {};
+
+    dwByte = {};
+    hFile = CreateFile(TEXT("../Bin/DataFiles/Navigation1.dat"), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+    if (0 == hFile)
+        return E_FAIL;
+
+ 
+
+    for (size_t i = 0; i < m_iNumVerticesZ - 1; i++)
+    {
+        for (size_t j = 0; j < m_iNumVerticesX - 1; j++)
+        {
+            _uint       iIndex = (_uint)i * m_iNumVerticesX + (_uint)j;
+
+            _uint       iIndices[4] = {
+                iIndex + m_iNumVerticesX, 
+                iIndex + m_iNumVerticesX + 1,
+                iIndex + 1,
+                iIndex
+            };
+
+            _vector     vSour, vDest, vNormal;
+
+            pIndices[iNumIndices++] = iIndices[0];
+            pIndices[iNumIndices++] = iIndices[1];
+            pIndices[iNumIndices++] = iIndices[2];
+
+            WriteFile(hFile, &m_pVertexPositions[iIndices[0]], sizeof(_float3), &dwByte, nullptr);
+            WriteFile(hFile, &m_pVertexPositions[iIndices[1]], sizeof(_float3), &dwByte, nullptr);
+            WriteFile(hFile, &m_pVertexPositions[iIndices[2]], sizeof(_float3), &dwByte, nullptr);
+
+
+            vSour = XMLoadFloat3(&pVertices[iIndices[1]].vPosition) - XMLoadFloat3(&pVertices[iIndices[0]].vPosition);
+            vDest = XMLoadFloat3(&pVertices[iIndices[2]].vPosition) - XMLoadFloat3(&pVertices[iIndices[1]].vPosition);
+
+            vNormal = XMVector3Normalize(XMVector3Cross(vSour, vDest));
+
+            XMStoreFloat3(&pVertices[iIndices[0]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[0]].vNormal) + vNormal);
+            XMStoreFloat3(&pVertices[iIndices[1]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[1]].vNormal) + vNormal);
+            XMStoreFloat3(&pVertices[iIndices[2]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[2]].vNormal) + vNormal);
+
+            pIndices[iNumIndices++] = iIndices[0];
+            pIndices[iNumIndices++] = iIndices[2];
+            pIndices[iNumIndices++] = iIndices[3];
+            WriteFile(hFile, &m_pVertexPositions[iIndices[0]], sizeof(_float3), &dwByte, nullptr);
+            WriteFile(hFile, &m_pVertexPositions[iIndices[2]], sizeof(_float3), &dwByte, nullptr);
+            WriteFile(hFile, &m_pVertexPositions[iIndices[3]], sizeof(_float3), &dwByte, nullptr);
+
+            vSour = XMLoadFloat3(&pVertices[iIndices[2]].vPosition) - XMLoadFloat3(&pVertices[iIndices[0]].vPosition);
+            vDest = XMLoadFloat3(&pVertices[iIndices[3]].vPosition) - XMLoadFloat3(&pVertices[iIndices[2]].vPosition);
+
+            vNormal = XMVector3Normalize(XMVector3Cross(vSour, vDest));
+
+            XMStoreFloat3(&pVertices[iIndices[0]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[0]].vNormal) + vNormal);
+            XMStoreFloat3(&pVertices[iIndices[2]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[2]].vNormal) + vNormal);
+            XMStoreFloat3(&pVertices[iIndices[3]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[3]].vNormal) + vNormal);
+
+        }   
+    }
+    CloseHandle(hFile);
+
+    for (size_t i = 0; i < m_iNumVertices; i++)
+    {
+        XMStoreFloat3(&pVertices[i].vNormal,
+            XMVector3Normalize(XMLoadFloat3(&pVertices[i].vNormal)));
+    }
+
+#pragma endregion
+
+    D3D11_SUBRESOURCE_DATA      VertexInitialData{};
+    VertexInitialData.pSysMem = pVertices;
+
+    if (FAILED(m_pDevice->CreateBuffer(&VertexBufferDesc, &VertexInitialData, &m_pVB)))
+        return E_FAIL;
+
+    Safe_Delete_Array(pVertices);
+    Safe_Delete_Array(pPixels);
+
+    D3D11_SUBRESOURCE_DATA      IndexInitialData{};
+    IndexInitialData.pSysMem = pIndices;
+
+    if (FAILED(m_pDevice->CreateBuffer(&IndexBufferDesc, &IndexInitialData, &m_pIB)))
+        return E_FAIL;
+
+    Safe_Delete_Array(pIndices);
+
+	return S_OK;
+}
+
+HRESULT VIBuffer_Terrain::Initialize(void* pArg)
+{
+	return S_OK;
+}
+
+VIBuffer_Terrain* VIBuffer_Terrain::Create(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, const _tchar* pHeightFileMapPath)
+{
+    VIBuffer_Terrain* pInstance = new VIBuffer_Terrain(pDevice, pContext);
+
+    if (FAILED(pInstance->Initialize_Prototype(pHeightFileMapPath)))
+    {
+        MSG_BOX("Failed to Created : VIBuffer_Terrain");
+        Safe_Release(pInstance);
+    }
+    return pInstance;
+}
+
+Component* VIBuffer_Terrain::Clone(void* pArg)
+{
+    VIBuffer_Terrain* pInstance = new VIBuffer_Terrain(*this);
+
+    if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Failed to Cloned : VIBuffer_Terrain");
+        Safe_Release(pInstance);
+    }
+
+    return pInstance;
+}
+
+void VIBuffer_Terrain::Free()
+{
+	__super::Free();
+}

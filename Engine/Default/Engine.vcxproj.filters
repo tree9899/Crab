@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="00.System">
+      <UniqueIdentifier>{e6851bbd-b9da-408e-b845-cdf4e95e2ca4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility">
+      <UniqueIdentifier>{6c352194-54cd-4980-bb26-f3a0348500d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\99.SuperClass">
+      <UniqueIdentifier>{6cb464dd-6258-473c-88f1-00458f23d802}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Defines">
+      <UniqueIdentifier>{c5593b8a-6126-437b-8ea8-29a5f991878b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\00. GameInstance">
+      <UniqueIdentifier>{7ff4d1ad-804a-4bfa-b9be-ee1252cb96dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.System\Graphic">
+      <UniqueIdentifier>{4042642b-c270-4097-93b1-e2db1038a02c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.System\Input">
+      <UniqueIdentifier>{919fa981-0de9-455d-8861-9688c3fb8ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\01. Prototype">
+      <UniqueIdentifier>{75ebbebf-cd1e-4f95-bacc-0c400a313684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\02. 씬 Level">
+      <UniqueIdentifier>{6014fb4e-50c3-44ab-8c1f-817b56016297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03. 게임오브젝트 GameObject">
+      <UniqueIdentifier>{388bf93a-a474-4176-8dd9-2e99dd0f9757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.System\Timer">
+      <UniqueIdentifier>{715237eb-fa4c-456b-a44e-557d07a5d055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04. 기능 Component">
+      <UniqueIdentifier>{4a8109fd-7eef-490d-ba99-cfbd8c07875a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\05. 모델 Model">
+      <UniqueIdentifier>{6523d404-66b6-4430-8c1c-9dbd9b10ac10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\06. Renderer">
+      <UniqueIdentifier>{526c7cde-9328-42b1-b4f7-cce74a98be3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\07. Light">
+      <UniqueIdentifier>{f40a66d4-f646-42f8-a9b8-aa122bdcdb42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\08. PipeLine">
+      <UniqueIdentifier>{9b29f097-7b98-40d0-9566-aab111f57bd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\10. Shader">
+      <UniqueIdentifier>{3738427d-e162-4263-87c9-f4642a5178c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\09. Texture">
+      <UniqueIdentifier>{255b39c4-b087-48b9-844f-91e877ead748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04. 기능 Component\00. VIBuffer">
+      <UniqueIdentifier>{ee9dfd40-9eda-46b4-8ee5-a781e9541283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04. 기능 Component\01. 네비 Navigation">
+      <UniqueIdentifier>{6283a463-95b4-44cd-ae16-f4f9e5a769ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04. 기능 Component\02. 충돌 Collider">
+      <UniqueIdentifier>{0e498f55-2222-40a5-9b63-e4d13b84bbb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding">
+      <UniqueIdentifier>{1cfb6029-4260-490e-ac8d-2146da70a6e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding\AABB">
+      <UniqueIdentifier>{d470d246-b2d6-44d3-b7ff-0ca6a5d1fd21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding\OBB">
+      <UniqueIdentifier>{9b13d4e6-837d-4f31-93d5-22964466b569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding\Sphere">
+      <UniqueIdentifier>{3c6a9c83-bb76-4f38-9d49-c8b051d381dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03. 게임오브젝트 GameObject\00. 매니저">
+      <UniqueIdentifier>{7f7c479f-b469-4424-b3b7-bea45a7622f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03. 게임오브젝트 GameObject\01. 카메라 Camera">
+      <UniqueIdentifier>{cf7b18ec-3e9f-458d-8224-aa6fce777e36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03. 게임오브젝트 GameObject\02. 컨테이너 Contaner">
+      <UniqueIdentifier>{4cbdbdcf-e59d-4c70-8409-bcf9d803a019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03. 게임오브젝트 GameObject\03. 레이어 Layer">
+      <UniqueIdentifier>{15efdf2c-fe96-4d24-91bd-075f3732a879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03. 게임오브젝트 GameObject\04. UI">
+      <UniqueIdentifier>{77682f3a-a9ec-4bb4-867f-c52e98899a05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04. 기능 Component\03. 위치 Transform">
+      <UniqueIdentifier>{19135927-15cb-437a-a641-e3bcebd3cb95}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\public\Base.h">
+      <Filter>01.Utility\99.SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\00. New\20251202_Framework_OBB_Skybox\Engine\Public\Bounding.h">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\00. New\20251202_Framework_OBB_Skybox\Engine\Public\Bounding_AABB.h">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding\AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\00. New\20251202_Framework_OBB_Skybox\Engine\Public\Bounding_OBB.h">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding\OBB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\00. New\20251202_Framework_OBB_Skybox\Engine\Public\Bounding_Sphere.h">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Camera.h">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\01. 카메라 Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Cell.h">
+      <Filter>01.Utility\04. 기능 Component\01. 네비 Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Collider.h">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Component.h">
+      <Filter>01.Utility\04. 기능 Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\ContainerObject.h">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\02. 컨테이너 Contaner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\DebugDraw.h">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Engine_Define.h">
+      <Filter>99.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Engine_Enum.h">
+      <Filter>99.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Engine_Function.h">
+      <Filter>99.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Engine_Macro.h">
+      <Filter>99.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Engine_Struct.h">
+      <Filter>99.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Engine_Typedef.h">
+      <Filter>99.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\GameInstance.h">
+      <Filter>01.Utility\00. GameInstance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\GameObject.h">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Graphic_Device.h">
+      <Filter>00.System\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Input_Device.h">
+      <Filter>00.System\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Layer.h">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\03. 레이어 Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Level.h">
+      <Filter>01.Utility\02. 씬 Level</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Channel.h">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Level_Manager.h">
+      <Filter>01.Utility\02. 씬 Level</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Light.h">
+      <Filter>01.Utility\07. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Light_Manager.h">
+      <Filter>01.Utility\07. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Material.h">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Mesh.h">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Model.h">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Navigation.h">
+      <Filter>01.Utility\04. 기능 Component\01. 네비 Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Object_Manager.h">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\00. 매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\PartObject.h">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\PipeLine.h">
+      <Filter>01.Utility\08. PipeLine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Prototype_Manager.h">
+      <Filter>01.Utility\01. Prototype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Renderer.h">
+      <Filter>01.Utility\06. Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Shader.h">
+      <Filter>01.Utility\10. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Texture.h">
+      <Filter>01.Utility\09. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\00. New\20251202_Framework_OBB_Skybox\Engine\Public\Animation.h">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\00. New\20251202_Framework_OBB_Skybox\Engine\Public\Bone.h">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Timer.h">
+      <Filter>00.System\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Timer_Manager.h">
+      <Filter>00.System\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\UIObject.h">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\04. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer.h">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Cell.h">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Cube.h">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Rect.h">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Terrain.h">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Transform.h">
+      <Filter>01.Utility\04. 기능 Component\03. 위치 Transform</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Private\Animation.cpp">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Base.cpp">
+      <Filter>01.Utility\99.SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bone.cpp">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bounding.cpp">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bounding_AABB.cpp">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding\AABB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bounding_OBB.cpp">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding\OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bounding_Sphere.cpp">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider\Bounding\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Camera.cpp">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\01. 카메라 Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Cell.cpp">
+      <Filter>01.Utility\04. 기능 Component\01. 네비 Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Channel.cpp">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Collider.cpp">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Component.cpp">
+      <Filter>01.Utility\04. 기능 Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ContainerObject.cpp">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\02. 컨테이너 Contaner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\DebugDraw.cpp">
+      <Filter>01.Utility\04. 기능 Component\02. 충돌 Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\GameInstance.cpp">
+      <Filter>01.Utility\00. GameInstance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\GameObject.cpp">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Graphic_Device.cpp">
+      <Filter>00.System\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Input_Device.cpp">
+      <Filter>00.System\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Layer.cpp">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\03. 레이어 Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level.cpp">
+      <Filter>01.Utility\02. 씬 Level</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_Manager.cpp">
+      <Filter>01.Utility\02. 씬 Level</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Light.cpp">
+      <Filter>01.Utility\07. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Light_Manager.cpp">
+      <Filter>01.Utility\07. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Material.cpp">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh.cpp">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Model.cpp">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Navigation.cpp">
+      <Filter>01.Utility\04. 기능 Component\01. 네비 Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\PartObject.cpp">
+      <Filter>01.Utility\05. 모델 Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\PipeLine.cpp">
+      <Filter>01.Utility\08. PipeLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Prototype_Manager.cpp">
+      <Filter>01.Utility\01. Prototype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Renderer.cpp">
+      <Filter>01.Utility\06. Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Shader.cpp">
+      <Filter>01.Utility\10. Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Texture.cpp">
+      <Filter>01.Utility\09. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Timer.cpp">
+      <Filter>00.System\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Timer_Manager.cpp">
+      <Filter>00.System\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Transform.cpp">
+      <Filter>01.Utility\04. 기능 Component\03. 위치 Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UIObject.cpp">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\04. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer.cpp">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Cell.cpp">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Cube.cpp">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Rect.cpp">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Terrain.cpp">
+      <Filter>01.Utility\04. 기능 Component\00. VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Object_Manager.cpp">
+      <Filter>01.Utility\03. 게임오브젝트 GameObject\00. 매니저</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

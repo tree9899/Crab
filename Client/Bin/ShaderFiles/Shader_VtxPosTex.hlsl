@@ -1,0 +1,87 @@
+#include "Shader_Defines.hlsli"
+
+matrix g_WorldMatrix, g_ViewMatrix, g_ProjMatrix;
+texture2D g_Texture;
+
+sampler DefaultSampler = sampler_state 
+{
+    Filter = MIN_MAG_MIP_LINEAR;
+    AddressU = wrap;
+    AddressV = wrap;
+};
+
+/*삼각형리스트로 그린다 -> 인덱스버퍼에 있는 인덱스 세개에 해당하는 정점 세개롤 뽑아온다. */ 
+/* 각각 vs_main에 집어넣어서 함수 세개를 각각 동시에 호출하여 정점 쉐이더를 시작한다. */
+
+struct VS_IN
+{
+    float3 vPosition : POSITION;
+    float2 vTexcoord : TEXCOORD0;
+};
+
+struct VS_OUT
+{
+    float4 vPosition : SV_POSITION;
+    float2 vTexcoord : TEXCOORD0;
+
+};
+
+/* 정점의 기본적인 변환을 가져간다. World, View, Proj */ 
+/* 정점의 구성 정보를 변형한다. (멤버를 늘리거나 , 줄이거나 ) */ 
+
+VS_OUT VS_MAIN(VS_IN In)
+{
+    VS_OUT Out;   
+    
+    vector vPosition = mul(vector(In.vPosition, 1.f), g_WorldMatrix);
+    vPosition = mul(vPosition, g_ViewMatrix);
+    vPosition = mul(vPosition, g_ProjMatrix);  
+    
+    Out.vPosition = vPosition;
+    Out.vTexcoord = In.vTexcoord;
+
+    
+    return Out;        
+}
+
+/* 포지션시멘틱에 해당하는 변수의 w로 모든 성분을 나눈다 */
+/* 뷰포트로 변환한다.(윈도우좌표로 변환) */
+/* 래스터라이즈 : 리턴된 정점정보를 기반으로하여 사이를 선형보간한 픽셀을 만들어준다.  */
+
+struct PS_IN
+{
+    float4 vPosition : SV_POSITION;
+    float2 vTexcoord : TEXCOORD0;
+
+};
+
+struct PS_OUT
+{
+    vector vColor : SV_TARGET0;    
+};
+
+PS_OUT PS_MAIN(PS_IN In)
+{
+    PS_OUT Out;    
+
+    //g_Texture.Sample(/*어떤방식으로 샘플링할까?*/, 어디의 /*색을 얻어올까?*/);
+    
+    vector      vColor = g_Texture.Sample(DefaultSampler, In.vTexcoord);   
+        
+    Out.vColor = vColor;
+    
+    return Out;
+}
+
+technique11 DefaultTechnique
+{
+    pass Default
+    { 
+        SetRasterizerState(RS_Default);
+        SetDepthStencilState(DSS_Default, 0);
+
+        VertexShader = compile vs_5_0 VS_MAIN();       
+        PixelShader = compile ps_5_0 PS_MAIN();
+    }
+
+}

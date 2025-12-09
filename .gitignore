@@ -1,0 +1,56 @@
+# ============================
+# Visual Studio 관련 파일
+# ============================
+.vs/
+*.suo
+*.user
+*.userosscache
+
+# ============================
+# 빌드 산출물 무시
+# ============================
+Debug/
+Release/
+x64/
+x86/
+ipch/
+*.obj
+*.pdb
+*.idb
+*.ipch
+*.aps
+*.ncb
+*.tlog
+*.log
+
+# ============================
+# 패키지/툴 관련
+# ============================
+*.vc.db
+*.VC.db
+*.opensdf
+*.sdf
+
+# ============================
+# 임시 파일
+# ============================
+*.tmp
+*.bak
+
+# ============================
+# 예외 처리 (필요 폴더 강제 포함)
+# ============================
+
+!Reference/
+!Reference/Library/
+!Reference/Library/Debug/
+!Reference/Library/Debug/.gitkeep
+!Reference/Library/Release/
+!Reference/Library/Release/.gitkeep
+!Reference/FmodLib/
+!Reference/FmodLib/Debug/
+!Reference/FmodLib/Debug/.gitkeep
+!Reference/FmodLib/Release/
+!Reference/FmodLib/Release/.gitkeep
+Map_Tool/Bin/assimp-vc143-mt.dll
+Map_Tool/Bin/assimp-vc143-mtd.dll
