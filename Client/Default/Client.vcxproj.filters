@@ -110,6 +110,9 @@
     <Filter Include="03. 오브젝트\03. Tree">
       <UniqueIdentifier>{1fe3abc9-5431-4ebc-89aa-87f39aea80ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97. 쉐이더">
+      <UniqueIdentifier>{f19ea8df-934f-4ea5-b6f3-9452fed18796}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">

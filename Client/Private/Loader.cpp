@@ -73,19 +73,19 @@ HRESULT Loader::Loading()
 
 HRESULT Loader::Loading_For_Logo()
 {
-	lstrcpy(m_szFPS, TEXT("ÅØ½ºÃÄ¸¦ ·Îµù Áß ÀÔ´Ï´Ù."));
+	lstrcpy(m_szFPS, TEXT("í…ìŠ¤ì³ë¥¼ ë¡œë”© ì¤‘ ì…ë‹ˆë‹¤."));
 	/* For.Prototype_Component_Texture_BackGround */
 	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_TO_UINT(LEVEL::LOGO), TEXT("Prototype_Component_Texture_BackGround"),
 		Texture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Logo2.jpg"), 1))))
 		return E_FAIL;
 
-	lstrcpy(m_szFPS, TEXT("°´Ã¼¿øÇüÀ»(¸¦) ·Îµù Áß ÀÔ´Ï´Ù."));
+	lstrcpy(m_szFPS, TEXT("ê°ì²´ì›í˜•ì„(ë¥¼) ë¡œë”© ì¤‘ ì…ë‹ˆë‹¤."));
 	/* For.Prototype_GameObject_BackGround */
 	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_TO_UINT(LEVEL::LOGO), TEXT("Prototype_GameObject_BackGround"),
 		BackGround::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	lstrcpy(m_szFPS, TEXT("·ÎµùÀÌ ¿Ï·áµÇ¾ú½¿´Ï´Ù."));
+	lstrcpy(m_szFPS, TEXT("ë¡œë”©ì´ ì™„ë£Œë˜ì—ˆìŠ´ë‹ˆë‹¤."));
 
 	m_isFinished = true;
 
@@ -94,13 +94,13 @@ HRESULT Loader::Loading_For_Logo()
 
 HRESULT Loader::Loading_For_MapTool()
 {
-	lstrcpy(m_szFPS, TEXT("ÅØ½ºÃÄ¸¦ ·Îµù Áß ÀÔ´Ï´Ù."));
+	lstrcpy(m_szFPS, TEXT("í…ìŠ¤ì³ë¥¼ ë¡œë”© ì¤‘ ì…ë‹ˆë‹¤."));
 	/* For.Prototype_Component_Texture_Terrain */
 	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_TO_UINT(LEVEL::MAPTOOL), TEXT("Prototype_Component_Texture_Terrain"),
 		Texture::Create(m_pDevice, m_pContext, TEXT("../Bin/Resources/Textures/Terrain/sand3.dds"), 1))))
 		return E_FAIL;
 
-	lstrcpy(m_szFPS, TEXT("¸ğµ¨À»(¸¦) ·Îµù Áß ÀÔ´Ï´Ù."));
+	lstrcpy(m_szFPS, TEXT("ëª¨ë¸ì„(ë¥¼) ë¡œë”© ì¤‘ ì…ë‹ˆë‹¤."));
 
 	_matrix		PreTransformMatrix = XMMatrixIdentity();
 	/* For.Prototype_Component_Model_GenericTerrainF */
@@ -126,11 +126,11 @@ HRESULT Loader::Loading_For_MapTool()
 	/* For.Prototype_Component_Model_TreeE */
 	PreTransformMatrix = XMMatrixScaling(0.01f, 0.01f, 0.01f) * XMMatrixRotationY(XMConvertToRadians(180.0f));
 	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_TO_UINT(LEVEL::MAPTOOL), TEXT("Prototype_Component_Model_TreeE"),
-		Model::Create(m_pDevice, m_pContext, MODEL::NONANIM, "../Bin/Resources/Models/Tree/TreeE7.fbx", PreTransformMatrix))))
+		Model::Create(m_pDevice, m_pContext, MODEL::NONANIM, "../Bin/Resources/Models/Tree/TreeE10.fbx", PreTransformMatrix))))
 		return E_FAIL;
 
-#pragma region ¸ÊÅø¾À_½¦ÀÌ´õ
-	lstrcpy(m_szFPS, TEXT("½¦ÀÌ´õÀ»(¸¦) ·Îµù Áß ÀÔ´Ï´Ù."));
+#pragma region ë§µíˆ´ì”¬_ì‰ì´ë”
+	lstrcpy(m_szFPS, TEXT("ì‰ì´ë”ì„(ë¥¼) ë¡œë”© ì¤‘ ì…ë‹ˆë‹¤."));
 	/* For.Prototype_Component_Shader_VtxNorTex */
 	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_TO_UINT(LEVEL::MAPTOOL), TEXT("Prototype_Component_Shader_VtxNorTex"),
 		Shader::Create(m_pDevice, m_pContext, TEXT("../Bin/ShaderFiles/Shader_VtxNorTex.hlsl"), VTXNORTEX::Elements, VTXNORTEX::iNumElements))))
@@ -157,14 +157,14 @@ HRESULT Loader::Loading_For_MapTool()
 		return E_FAIL;
 #pragma endregion
 
-	lstrcpy(m_szFPS, TEXT("³×ºñ°ÔÀÌ¼ÇÀ»(¸¦) ·Îµù Áß ÀÔ´Ï´Ù."));
+	lstrcpy(m_szFPS, TEXT("ë„¤ë¹„ê²Œì´ì…˜ì„(ë¥¼) ë¡œë”© ì¤‘ ì…ë‹ˆë‹¤."));
 	///* For.Prototype_Component_Navigation */
 	//if (FAILED(m_pGameInstance->Add_Prototype(ENUM_TO_UINT(LEVEL::MAPTOOL), TEXT("Prototype_Component_Navigation"),
 	//	Navigation::Create(m_pDevice, m_pContext, TEXT("../Bin/DataFiles/Navigation1.dat"), TEXT("../Bin/DataFiles/NavigationNeighbors.dat")))))
 	//	return E_FAIL;
 
-#pragma region ¸ÊÅø¾À_Äİ¶óÀÌ´õ
-	lstrcpy(m_szFPS, TEXT("Äİ¶óÀÌ´õÀ»(¸¦) ·Îµù Áß ÀÔ´Ï´Ù."));
+#pragma region ë§µíˆ´ì”¬_ì½œë¼ì´ë”
+	lstrcpy(m_szFPS, TEXT("ì½œë¼ì´ë”ì„(ë¥¼) ë¡œë”© ì¤‘ ì…ë‹ˆë‹¤."));
 	/* For.Prototype_Component_Collider_AABB */
 	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_TO_UINT(LEVEL::MAPTOOL), TEXT("Prototype_Component_Collider_AABB"),
 		Collider::Create(m_pDevice, m_pContext, COLLIDER::AABB))))
@@ -181,7 +181,7 @@ HRESULT Loader::Loading_For_MapTool()
 		return E_FAIL;
 #pragma endregion
 
-	lstrcpy(m_szFPS, TEXT("°´Ã¼¿øÇüÀ»(¸¦) ·Îµù Áß ÀÔ´Ï´Ù."));
+	lstrcpy(m_szFPS, TEXT("ê°ì²´ì›í˜•ì„(ë¥¼) ë¡œë”© ì¤‘ ì…ë‹ˆë‹¤."));
 	/* For.Prototype_GameObject_Camera_Free */
 	if (FAILED(m_pGameInstance->Add_Prototype(ENUM_TO_UINT(LEVEL::MAPTOOL), TEXT("Prototype_GameObject_Camera_Free"),
 		Camera_Free::Create(m_pDevice, m_pContext))))
@@ -212,7 +212,7 @@ HRESULT Loader::Loading_For_MapTool()
 		Tree::Create(m_pDevice, m_pContext))))
 		return E_FAIL;
 
-	lstrcpy(m_szFPS, TEXT("·ÎµùÀÌ ¿Ï·áµÇ¾ú½¿´Ï´Ù."));
+	lstrcpy(m_szFPS, TEXT("ë¡œë”©ì´ ì™„ë£Œë˜ì—ˆìŠ´ë‹ˆë‹¤."));
 
 	m_isFinished = true;
 

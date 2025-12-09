@@ -14,6 +14,9 @@ vector g_vMtrlSpecular = vector(1.f, 1.f, 1.f, 1.f);
 
 vector g_vCamPosition;
 
+int g_bUseCustomColor = 0; // 0: í…ìŠ¤ì²˜ ìƒ‰, 1: ì»¤ìŠ¤í…€ ìƒ‰
+vector g_vCustomColor = vector(1.f, 1.f, 1.f, 1.f); // ì‚¬ìš©í•  ìƒ‰
+
 sampler DefaultSampler = sampler_state 
 {
     Filter = MIN_MAG_MIP_LINEAR;
@@ -43,10 +46,11 @@ struct VS_OUT
     float4 vNormal : NORMAL;
     float2 vTexcoord : TEXCOORD0;
     float4 vWorldPos : TEXCOORD1;
+    float3 vLocalPos : TEXCOORD2;
 };
 
-/* Á¤Á¡ÀÇ ±âº»ÀûÀÎ º¯È¯À» °¡Á®°£´Ù. World, View, Proj */ 
-/* Á¤Á¡ÀÇ ±¸¼º Á¤º¸¸¦ º¯ÇüÇÑ´Ù. (¸â¹ö¸¦ ´Ã¸®°Å³ª , ÁÙÀÌ°Å³ª ) */ 
+/* ì •ì ì˜ ê¸°ë³¸ì ì¸ ë³€í™˜ì„ ê°€ì ¸ê°„ë‹¤. World, View, Proj */ 
+/* ì •ì ì˜ êµ¬ì„± ì •ë³´ë¥¼ ë³€í˜•í•œë‹¤. (ë©¤ë²„ë¥¼ ëŠ˜ë¦¬ê±°ë‚˜ , ì¤„ì´ê±°ë‚˜ ) */ 
 
 VS_OUT VS_MAIN(VS_IN In)
 {
@@ -61,12 +65,14 @@ VS_OUT VS_MAIN(VS_IN In)
     Out.vTexcoord = In.vTexcoord;
     Out.vWorldPos = mul(vector(In.vPosition, 1.f), g_WorldMatrix);
     
+    Out.vLocalPos = In.vPosition;
+    
     return Out;        
 }
 
-/* Æ÷Áö¼Ç½Ã¸àÆ½¿¡ ÇØ´çÇÏ´Â º¯¼öÀÇ w·Î ¸ğµç ¼ººĞÀ» ³ª´«´Ù */
-/* ºäÆ÷Æ®·Î º¯È¯ÇÑ´Ù.(À©µµ¿ìÁÂÇ¥·Î º¯È¯) */
-/* ·¡½ºÅÍ¶óÀÌÁî : ¸®ÅÏµÈ Á¤Á¡Á¤º¸¸¦ ±â¹İÀ¸·ÎÇÏ¿© »çÀÌ¸¦ ¼±Çüº¸°£ÇÑ ÇÈ¼¿À» ¸¸µé¾îÁØ´Ù.  */
+/* í¬ì§€ì…˜ì‹œë©˜í‹±ì— í•´ë‹¹í•˜ëŠ” ë³€ìˆ˜ì˜ wë¡œ ëª¨ë“  ì„±ë¶„ì„ ë‚˜ëˆˆë‹¤ */
+/* ë·°í¬íŠ¸ë¡œ ë³€í™˜í•œë‹¤.(ìœˆë„ìš°ì¢Œí‘œë¡œ ë³€í™˜) */
+/* ë˜ìŠ¤í„°ë¼ì´ì¦ˆ : ë¦¬í„´ëœ ì •ì ì •ë³´ë¥¼ ê¸°ë°˜ìœ¼ë¡œí•˜ì—¬ ì‚¬ì´ë¥¼ ì„ í˜•ë³´ê°„í•œ í”½ì…€ì„ ë§Œë“¤ì–´ì¤€ë‹¤.  */
 
 struct PS_IN
 {
@@ -74,6 +80,7 @@ struct PS_IN
     float4 vNormal : NORMAL;
     float2 vTexcoord : TEXCOORD0;
     float4 vWorldPos : TEXCOORD1;
+    float3 vLocalPos : TEXCOORD2;
 
 };
 
@@ -86,17 +93,61 @@ PS_OUT PS_MAIN(PS_IN In)
 {
     PS_OUT Out;       
     
-    vector vMtrlDiffuse = g_DiffuseTexture.Sample(DefaultSampler, In.vTexcoord);
-   
-    float fShade = max(dot(normalize(g_vLightDir) * -1.f, normalize(In.vNormal)), 0.f);
+    vector vMtrlDiffuse;// = g_DiffuseTexture.Sample(DefaultSampler, In.vTexcoord);
+    bool isTrunk = false;
     
-    float4 vLook = In.vWorldPos - g_vCamPosition;
-    float4 vReflect = reflect(normalize(g_vLightDir), normalize(In.vNormal));
+    if (g_bUseCustomColor == 1) //íŠ¸ë¦¬ë§Œã…‹ã…‹ìƒ‰ìƒ ë³€ê²½
+    {
+        float height = In.vLocalPos.y; // ë¡œì»¬ ê¸°ì¤€ ë†’ì´
+        float radial = length(In.vLocalPos.xz); // ì¤‘ì‹¬ì—ì„œì˜ ë°˜ì§€ë¦„
+
+        // ê°’ì€ ëŒ€ì¶© ì¡ê³ , ë‚˜ì¤‘ì— ë³´ê³  ì¡°ì ˆí•˜ë©´ ë¼
+        float trunkTopHeight = 30.0f; // ì¤„ê¸°ê°€ ëë‚˜ëŠ” ë†’ì´
+        float trunkRadius = 2.f; // ì¤„ê¸° ë°˜ì§€ë¦„ (ì•¼ììˆ˜ ëª¸í†µ ë‘ê»˜ ëŠë‚Œ)
+
+        isTrunk = (height < trunkTopHeight) && (radial < trunkRadius);
+
+        vector trunkColor = vector(0.45f, 0.28f, 0.15f, 1.f); // ê°ˆìƒ‰
+        vector leafColor = vector(0.15f, 0.6f, 0.2f, 1.f); // ì´ˆë¡
+
+        if (isTrunk)
+            vMtrlDiffuse = trunkColor;
+        else
+            vMtrlDiffuse = leafColor;
+
+    }
+    else
+    {
+        vMtrlDiffuse = g_DiffuseTexture.Sample(DefaultSampler, In.vTexcoord);
+    }
     
-    float fSpecular = pow(max(dot(normalize(vLook) * -1.f, vReflect), 0.f), 50);
-    
-    Out.vColor = g_vLightDiffuse * vMtrlDiffuse * saturate(fShade + (g_vLightAmbient * g_vMtrlAmbient)) +  
-     (g_vLightSpecular * g_vMtrlSpecular) * fSpecular;
+    float3 N = normalize(In.vNormal.xyz);
+
+    if (g_bUseCustomColor == 1 && isTrunk)
+    {
+        float3 noisePos = In.vWorldPos.xyz * 0.1f; // â˜… ê³µê°„ì„ 10ë°° í‚¤ì›€ â†’ ë…¸ì´ì¦ˆ íŒ¨í„´ë„ 10ë°° ì»¤ì§
+       // float noise = frac(sin(dot(noisePos, float3(12.9898f, 78.233f, 37.719f))) * 43758.5453f);
+       // noise = (noise - 0.5f) * 0.3f; // í”ë“¤ë¦¼ ê°•ë„ë„ ì¡°ê¸ˆ ë‚®ì¶¤
+       //
+       // // ë…¸ë©€ì— ì‚´ì§ ë”í•´ì¤€ë‹¤
+       // N = normalize(N + float3(noise, noise, noise));
+    }
+    float3 L = normalize(-g_vLightDir.xyz); // ê´‘ì› ë°©í–¥
+    float3 V = normalize(g_vCamPosition.xyz - In.vWorldPos.xyz); // ëˆˆ ë°©í–¥
+    float3 R = reflect(-L, N);
+
+    float fShade = max(dot(L, N), 0.0f);
+
+    // ìŠ¤í˜í˜ëŸ¬ íŒŒì›Œ/ì„¸ê¸° ì¡°ì ˆí•´ì„œ ëœ ë²ˆì©ê±°ë¦¬ê²Œ
+    float fSpecPower = 16.0f; // ì›ë˜ 50 â†’ 16 (í•˜ì´ë¼ì´íŠ¸ ë„“ê²Œ)
+    float fSpecStrength = 0.3f; // ìŠ¤í˜í˜ëŸ¬ ê°•ë„ ì¤„ì´ê¸°
+
+    float fSpecular = pow(max(dot(V, R), 0.0f), fSpecPower) * fSpecStrength;
+
+    Out.vColor =
+        g_vLightDiffuse * vMtrlDiffuse *
+        saturate(fShade + (g_vLightAmbient * g_vMtrlAmbient)) +
+        (g_vLightSpecular * g_vMtrlSpecular) * fSpecular;
     
     return Out;
 }

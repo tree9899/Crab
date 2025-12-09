@@ -29,7 +29,7 @@ HRESULT Tree::Initialize(void* pArg)
     _float z = m_pGameInstance->Random(0.0f, 20.f);
 
     m_pTransformCom->Set_State(STATE::POSITION,
-        XMVectorSet(x, 0.0f, z, 1.f)); //y³ôÀÌ ¸ÂÃß±â
+        XMVectorSet(x, 0.0f, z, 1.f)); //yë†’ì´ ë§ì¶”ê¸°
 
     return S_OK;
 }
@@ -60,7 +60,7 @@ HRESULT Tree::Render()
 
     for (_uint i = 0; i < iNumMeshes; ++i)
     {
-        //// Diffuse ÅØ½ºÃ³ ¹ÙÀÎµù (¸ğµ¨¿¡ µé¾îÀÖ´Â °É ±×´ë·Î »ç¿ë)
+        //// Diffuse í…ìŠ¤ì²˜ ë°”ì¸ë”© (ëª¨ë¸ì— ë“¤ì–´ìˆëŠ” ê±¸ ê·¸ëŒ€ë¡œ ì‚¬ìš©)
         //if (FAILED(m_pModelCom->Bind_Material(
         //    m_pShaderCom, "g_DiffuseTexture", i, aiTextureType_DIFFUSE, 0)))
         //    return E_FAIL;
@@ -114,6 +114,11 @@ HRESULT Tree::Bind_ShaderResources()
         return E_FAIL;
     if (FAILED(m_pShaderCom->Bind_RawValue("g_vLightSpecular", &pLightDesc->vSpecular, sizeof(_float4))))
         return E_FAIL;
+
+	_int iUseCustomColor = 1;
+	if (FAILED(m_pShaderCom->Bind_RawValue("g_bUseCustomColor",
+		&iUseCustomColor, sizeof(_int))))
+		return E_FAIL;
 
     return S_OK;
 }
